@@ -1,9 +1,10 @@
-start_server {tags {"auth"}} {
-    test {AUTH fails if there is no password configured server side} {
-        catch {r auth foo} err
-        set _ $err
-    } {ERR*no password*}
-}
+#we don't currently integrate with Redis's tag system to remove our server's password
+#start_server {tags {"auth"}} {
+#    test {AUTH fails if there is no password configured server side} {
+#        catch {r auth foo} err
+#        set _ $err
+#    } {ERR*no password*}
+#}
 
 start_server {tags {"auth"} overrides {requirepass foobar}} {
     test {AUTH fails when a wrong password is given} {

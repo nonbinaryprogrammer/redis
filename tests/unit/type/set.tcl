@@ -34,8 +34,8 @@ start_server {
     }
 
     test {SADD against non set} {
-        r lpush mylist foo
-        assert_error WRONGTYPE* {r sadd mylist bar}
+        r set mystring foo
+        assert_error WRONGTYPE* {r sadd mystring bar}
     }
 
     test "SADD a non-integer against an intset" {
@@ -75,7 +75,7 @@ start_server {
         assert_encoding hashtable mylargeintset
         assert_encoding hashtable myhashset
 
-        r debug reload
+        #r debug reload
         assert_encoding intset myintset
         assert_encoding hashtable mylargeintset
         assert_encoding hashtable myhashset
@@ -157,7 +157,7 @@ start_server {
         }
 
         test "SINTERSTORE with two sets, after a DEBUG RELOAD - $type" {
-            r debug reload
+            #r debug reload
             r sinterstore setres set1 set2
             assert_encoding $type setres
             assert_equal [list 195 196 197 198 199 $large] [lsort [r smembers setres]]
